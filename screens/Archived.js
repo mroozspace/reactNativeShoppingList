@@ -4,24 +4,23 @@ import {
   FlatList,
   View,
 } from 'react-native';
-import { Button } from 'react-native-elements';
-import ListItem from '../../components/ListItem';
 import { connect } from 'react-redux'
+import ListItem from '../components/ListItem';
 
 class ShoppingListScreen extends React.Component {
   static navigationOptions = {
-    title: 'Shopping List',
+    title: 'Archived',
   };
 
   render() {
-    const { shoppingList } = this.props
+    const { archived } = this.props
 
     return (
       <View style={styles.container}>
         <FlatList
           contentContainerStyle={styles.contentContainer}
           keyExtractor = { (item, index) => index.toString() }
-          data={shoppingList}
+          data={archived}
           renderItem={({ item }) => (
           <ListItem 
             item={item}
@@ -29,10 +28,6 @@ class ShoppingListScreen extends React.Component {
             />
           )}
         />
-        <Button 
-          type='outline'
-          title='Add Item' 
-          onPress={() => this.props.navigation.navigate('AddShoppingList')}/>
       </View>
     );
   }
@@ -50,7 +45,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  shoppingList: state.shoppingList 
+  archived: state.archived 
 })
 
 const mapDispatchToProps = {

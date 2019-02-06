@@ -1,7 +1,6 @@
 import { createStore } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // AsyncStorage
-import initialState from './initialState'
 import rootReducer from './rootReducer'
 
 // use asyncstorage

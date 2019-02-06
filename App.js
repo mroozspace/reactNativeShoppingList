@@ -7,6 +7,7 @@ import AppNavigator from './navigation/AppNavigator';
 import { ThemeProvider } from 'react-native-elements';
 import storeConfig from './store'
 
+// todo lock orientation
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false

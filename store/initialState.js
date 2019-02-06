@@ -2,6 +2,8 @@ const initialState = {
   shoppingList: [
     {
       id: -2,
+      name: 'sniadanie',
+      createdAt: Date.now(),
       products: [
         'bagieta czosnkowa',
         'jajka'
@@ -10,6 +12,8 @@ const initialState = {
     },
     {
       id: -1,
+      name: 'obiad',
+      createdAt: Date.now(),
       products: [
         'mleko',
         'jajka'
@@ -20,7 +24,9 @@ const initialState = {
   archived: [
     {
       id: -1,
-      items: [
+      name: 'picie',
+      createdAt: Date.now(),
+      products: [
         'woda'
       ],
       note: 'zabka'
