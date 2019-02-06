@@ -4,11 +4,18 @@ import Colors from '../constants/Colors'
 import { Separator } from '../components/UI/Separator';
 import { BasicText, SecondaryHeader, Header } from '../components/UI/Typography';
 import moment from 'moment'
+import { connect } from 'react-redux'
+import { archiveShoppingList } from '../actions';
 
 class ItemDetails extends React.Component {
   static navigationOptions = {
     title: 'Shopping Details'
   };
+
+  archive = item => {
+    // this.props.archiveShoppingList(item)
+    // this.props.navigation.navigate.popToTop()
+  }
 
   render() {
     const item = this.props.navigation.getParam('item', {});
@@ -25,7 +32,6 @@ class ItemDetails extends React.Component {
           <BasicText key={product}> - {product}</BasicText>
         ))}
 
-        
         <SecondaryHeader style={{marginTop: 15}}>Notes:</SecondaryHeader>
         <Separator />
         <BasicText>{item.note ? item.note : '...'}</BasicText>
@@ -40,7 +46,8 @@ class ItemDetails extends React.Component {
             style={[styles.border, {padding: 10, width: '40%'}]}>
             <BasicText style={{textAlign: 'center'}}>Edit</BasicText>
           </TouchableOpacity>
-          <TouchableOpacity 
+          <TouchableOpacity
+            onPress={() => this.archive(item)}
             style={[styles.border, {padding: 10, width: '40%'}]}>
             <BasicText style={{textAlign: 'center'}}>Archive</BasicText>
           </TouchableOpacity>
@@ -64,17 +71,14 @@ const styles = StyleSheet.create({
     borderColor: Colors.primary,
     borderRadius: 5
   }
-  // container: {
-  //   height: 40,
-  //   padding: 10,
-  //   marginBottom: 15,
-  //   width: '100%',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   borderWidth: StyleSheet.hairlineWidth,
-  //   borderColor: Colors.primary,
-  //   borderRadius: 5
-  // }
 });
 
-export default ItemDetails;
+const mapStateToProps = (state) => ({
+  
+})
+
+const mapDispatchToProps = dispatch => ({
+  archiveShoppingList: item => dispatch(archiveShoppingList(item))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemDetails)

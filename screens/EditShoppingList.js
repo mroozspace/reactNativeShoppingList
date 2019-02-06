@@ -50,7 +50,6 @@ class EditShoppingList extends React.Component {
     this.setState({...item})
   }
   
-
   render() {    
     return (
       <View style={styles.container}>
