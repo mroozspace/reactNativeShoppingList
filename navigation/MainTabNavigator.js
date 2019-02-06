@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements'
-import ShoppingListScreen from '../screens/ShoppingListScreen';
+import ShoppingListScreen from '../screens/ShoppingList';
 import LinksScreen from '../screens/LinksScreen';
 import Colors from '../constants/Colors';
 
@@ -9,6 +9,8 @@ const color = focused => focused ? Colors.primary : Colors.secondary
 
 const ShoppingListStack = createStackNavigator({
   ShoppingList: ShoppingListScreen,
+  ShoppingDetails: ShoppingListScreen //todo, add details screen
+  // todo update splash screen ...
 });
 
 ShoppingListStack.navigationOptions = {
@@ -27,7 +29,7 @@ const LinksStack = createStackNavigator({
 });
 
 LinksStack.navigationOptions = {
-  tabBarLabel: 'Archivized',
+  tabBarLabel: 'archived',
   tabBarIcon: ({ focused }) => (
     <Icon
       name='archive'
