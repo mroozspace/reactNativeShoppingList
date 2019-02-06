@@ -4,9 +4,9 @@ import Colors from '../constants/Colors'
 import { BasicText } from '../components/UI/Typography';
 import { connect } from 'react-redux'
 import { Input } from 'react-native-elements';
-import { addShoppingList } from '../actions';
+import { editShoppingList } from '../actions';
 
-class AddShoppingList extends React.Component {
+class EditShoppingList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -28,17 +28,30 @@ class AddShoppingList extends React.Component {
     }
   }
 
-  saveList = () => {
+  editList = () => {
+    const item = this.props.navigation.getParam('item', {});
     const {
       name = '',
       products = [],
       note = '',
     } = this.state
-    this.props.addShoppingList({name, products, note})
-    this.props.navigation.pop()
+    this.props.editShoppingList({
+      name,
+      products,
+      note,
+      id: item.id,
+      createdAt: item.createdAt
+    })
+    this.props.navigation.popToTop()
   }
 
-  render() {
+  componentDidMount = () => {
+    const item = this.props.navigation.getParam('item', {});
+    this.setState({...item})
+  }
+  
+
+  render() {    
     return (
       <View style={styles.container}>
         <ScrollView style={[styles.container, styles.border, {marginBottom: 15}]}>
@@ -77,7 +90,7 @@ class AddShoppingList extends React.Component {
         
         <View style={{flexDirection: 'row', width: '100%', justifyContent: 'flex-end'}}>
           <TouchableOpacity
-            onPress={() => this.saveList()}
+            onPress={() => this.editList()}
             style={[styles.border, {padding: 10, width: '40%'}]}>
             <BasicText style={{textAlign: 'center'}}>Save</BasicText>
           </TouchableOpacity>
@@ -104,11 +117,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-
+  shoppingList: state.shoppingList
 })
 
 const mapDispatchToProps = dispatch => ({
-  addShoppingList: data => dispatch(addShoppingList(data))
+  editShoppingList: data => dispatch(editShoppingList(data))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddShoppingList)
+export default connect(mapStateToProps, mapDispatchToProps)(EditShoppingList)

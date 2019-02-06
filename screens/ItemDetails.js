@@ -35,7 +35,8 @@ class ItemDetails extends React.Component {
         </ScrollView>
         
         <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between'}}>
-          <TouchableOpacity 
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('EditShoppingList', {item})}
             style={[styles.border, {padding: 10, width: '40%'}]}>
             <BasicText style={{textAlign: 'center'}}>Edit</BasicText>
           </TouchableOpacity>

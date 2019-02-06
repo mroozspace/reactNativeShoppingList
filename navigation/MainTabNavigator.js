@@ -3,6 +3,7 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import { Icon } from 'react-native-elements'
 import ShoppingList from '../screens/ShoppingList';
 import AddShoppingList from '../screens/AddShoppingList';
+import EditShoppingList from '../screens/EditShoppingList';
 import ItemDetails from '../screens/ItemDetails';
 import Archived from '../screens/Archived';
 import Colors from '../constants/Colors';
@@ -12,7 +13,8 @@ const color = focused => focused ? Colors.primary : Colors.secondary
 const ShoppingListStack = createStackNavigator({
   ShoppingList,
   ItemDetails, //todo, add details screen,
-  AddShoppingList
+  AddShoppingList,
+  EditShoppingList
   // todo update splash screen ...
 });
 
