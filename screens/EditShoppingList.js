@@ -59,7 +59,6 @@ class EditShoppingList extends React.Component {
           onChangeText={ name => this.setState({name})}
           value={this.state.name}
           placeholder='List name'
-          label={'List name'}
         />
 
         <Input

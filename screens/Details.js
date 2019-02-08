@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ScrollView, Share } from 'react-native';
 import Colors from '../constants/Colors';
 import {
   BasicText,
@@ -7,8 +7,7 @@ import {
   Header
 } from '../components/UI/Typography';
 import moment from 'moment';
-import { CheckBox, Divider } from 'react-native-elements';
-
+import { CheckBox, Divider, Button } from 'react-native-elements';
 class Details extends Component {
   constructor(props) {
     super(props);
@@ -29,6 +28,30 @@ class Details extends Component {
     this.setState({ checkedProducts });
   };
 
+  onShare = () => {
+    const { item } = this.props;
+    const title = `Shopping list ${item.name}`;
+    const productsBought = this.state.checkedProducts.map(
+      product => `${'\n'} + ${product}`
+    );
+    
+    const productsLeft = item.products
+      .filter(item => !this.state.checkedProducts.includes(item))
+      .map(product => `${'\n'} - ${product}`);
+    const message =
+      `Products to buy:` +
+      `${productsLeft}` +
+      `${"\n"}Products bought:` +
+      `${productsBought}` +
+      `${"\n"}Note:`+
+      `${"\n"}${item.note}`
+
+    Share.share({
+      message,
+      title
+    });
+  };
+
   render() {
     const { item, children } = this.props;
 
@@ -39,6 +62,7 @@ class Details extends Component {
     return (
       <View style={styles.container}>
         <ScrollView
+          contentContainerStyle={{ paddingBottom: 50 }}
           style={[styles.container, styles.border, { marginBottom: 15 }]}
         >
           <Header style={styles.header}>{item.name}</Header>
@@ -65,6 +89,7 @@ class Details extends Component {
               ? moment(item.createdAt).format('Do MMMM YYYY, h:mm')
               : '...'}
           </BasicText>
+          <Button type='outline' title='Share' onPress={this.onShare} />
         </ScrollView>
         {children}
       </View>
