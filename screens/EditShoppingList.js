@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Colors from '../constants/Colors'
 import { BasicText } from '../components/UI/Typography';
 import { connect } from 'react-redux'
-import { Input } from 'react-native-elements';
+import { Input, CheckBox } from 'react-native-elements';
 import { editShoppingList } from '../actions';
 import KeyboardAwareContainer from '../components/KeyboardAwareContainer'
 
@@ -22,11 +22,14 @@ class EditShoppingList extends React.Component {
   };
 
   addProduct = () => {
-    if (this.state.product) {
       const products = this.state.products
       products.push(this.state.product)
       this.setState({ products, product: '' })
-    }
+  }
+
+  deleteProduct = product => {
+    const products = this.state.products.filter( item => item !== product)
+    this.setState({ products })
   }
 
   editList = () => {
@@ -51,7 +54,7 @@ class EditShoppingList extends React.Component {
     this.setState({...item})
   }
   
-  render() {    
+  render() {
     return (
       <View style={styles.container}>
         <KeyboardAwareContainer style={[styles.container, styles.border, {marginBottom: 15}]}>
@@ -68,15 +71,24 @@ class EditShoppingList extends React.Component {
         />
         <View style={{flexDirection: 'row', width: '100%', justifyContent: 'flex-end'}}>
           <TouchableOpacity 
+            disabled={!this.state.product}
             onPress={() => this.addProduct()}
-            style={[styles.border, {padding: 5, width: '40%', marginTop: 10}]}>
+            style={[styles.border, {padding: 5, width: '40%', marginTop: 15, marginBottom: 15}]}>
             <BasicText style={{textAlign: 'center'}}>Add Product</BasicText>
           </TouchableOpacity>
         </View>
         
-        <BasicText>Products: </BasicText>
         {this.state.products && this.state.products.map((product, index) => (
-          <BasicText key={index}> - {product}</BasicText>
+          <CheckBox
+            key={product}
+            title={product}
+            iconRight
+            textStyle={{flex: 1}}
+            iconType='feather'
+            uncheckedIcon='delete'
+            uncheckedColor={Colors.errorBackground}
+            onIconPress={ () => this.deleteProduct(product)}
+          />
         ))}
 
         <Input
@@ -103,7 +115,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 25
+    padding: 15
   },
   contentContainer: {
     backgroundColor: '#fff'

@@ -35,12 +35,12 @@ class Details extends Component {
       product => `${'\n'} + ${product}`
     );
     
-    const productsLeft = item.products
+    const productsToBuy = item.products
       .filter(item => !this.state.checkedProducts.includes(item))
       .map(product => `${'\n'} - ${product}`);
     const message =
       `Products to buy:` +
-      `${productsLeft}` +
+      `${productsToBuy}` +
       `${"\n"}Products bought:` +
       `${productsBought}` +
       `${"\n"}Note:`+
@@ -51,6 +51,14 @@ class Details extends Component {
       title
     });
   };
+
+  onCheckAll = () => {
+    this.setState({ checkedProducts: this.props.item.products })
+  }
+
+  onUncheckAll = () => {
+    this.setState({ checkedProducts: [] })
+  }
 
   render() {
     const { item, children } = this.props;
@@ -78,6 +86,10 @@ class Details extends Component {
                 onPress={() => this.setProductChecked(product)}
               />
             ))}
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 15}}>
+            <Button type='outline' title='Check all' onPress={this.onCheckAll} />
+            <Button type='outline' title='Uncheck all' onPress={this.onUncheckAll} />
+          </View>
 
           <SecondaryHeader style={{ marginTop: 15 }}>Notes:</SecondaryHeader>
           <Divider />
@@ -89,7 +101,7 @@ class Details extends Component {
               ? moment(item.createdAt).format('Do MMMM YYYY, h:mm')
               : '...'}
           </BasicText>
-          <Button type='outline' title='Share' onPress={this.onShare} />
+          <Button type='outline' title='Share' onPress={this.onShare} style={{marginTop: 15}}/>
         </ScrollView>
         {children}
       </View>
@@ -101,7 +113,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 25
+    padding: 15
   },
   contentContainer: {
     backgroundColor: '#fff'
