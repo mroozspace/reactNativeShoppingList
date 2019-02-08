@@ -1,49 +1,76 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
 import Colors from '../constants/Colors';
-import { Separator } from '../components/UI/Separator';
 import {
   BasicText,
   SecondaryHeader,
   Header
 } from '../components/UI/Typography';
 import moment from 'moment';
+import { CheckBox, Divider } from 'react-native-elements';
 
-const Details = ({item, children}) => {
-  
-  if ( !item ) {
-    return null
+class Details extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      checkedProducts: []
+    };
   }
 
-  return (
-    <View style={styles.container}>
-      <ScrollView
-        style={[styles.container, styles.border, { marginBottom: 15 }]}
-      >
-        <Header style={styles.header}>{item.name}</Header>
-        <Separator />
+  setProductChecked = product => {
+    let checkedProducts;
+    if (this.state.checkedProducts.includes(product)) {
+      checkedProducts = this.state.checkedProducts.filter(
+        item => item !== product
+      );
+    } else {
+      checkedProducts = [].concat(this.state.checkedProducts, product);
+    }
+    this.setState({ checkedProducts });
+  };
 
-        <SecondaryHeader>Products:</SecondaryHeader>
-        <Separator />
-        {item.products && item.products.map(product => (
-          <BasicText key={product}> - {product}</BasicText>
-        ))}
+  render() {
+    const { item, children } = this.props;
 
-        <SecondaryHeader style={{ marginTop: 15 }}>Notes:</SecondaryHeader>
-        <Separator />
-        <BasicText>{item.note ? item.note : '...'}</BasicText>
+    if (!item) {
+      return null;
+    }
 
-        <BasicText style={{ marginTop: 15 }}>
-          Created at:{' '}
-          {item.createdAt
-            ? moment(item.createdAt).format('Do MMMM YYYY, h:mm')
-            : '...'}
-        </BasicText>
-      </ScrollView>
-      {children}
-    </View>
-  );
-};
+    return (
+      <View style={styles.container}>
+        <ScrollView
+          style={[styles.container, styles.border, { marginBottom: 15 }]}
+        >
+          <Header style={styles.header}>{item.name}</Header>
+          <Divider />
+
+          <SecondaryHeader>Products:</SecondaryHeader>
+          {item.products &&
+            item.products.map(product => (
+              <CheckBox
+                key={product}
+                title={product}
+                checked={this.state.checkedProducts.includes(product)}
+                onPress={() => this.setProductChecked(product)}
+              />
+            ))}
+
+          <SecondaryHeader style={{ marginTop: 15 }}>Notes:</SecondaryHeader>
+          <Divider />
+          <BasicText>{item.note ? item.note : '...'}</BasicText>
+
+          <BasicText style={{ marginTop: 15 }}>
+            Created at:{' '}
+            {item.createdAt
+              ? moment(item.createdAt).format('Do MMMM YYYY, h:mm')
+              : '...'}
+          </BasicText>
+        </ScrollView>
+        {children}
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {

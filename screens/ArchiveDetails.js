@@ -8,7 +8,7 @@ class ArchivedDetails extends React.Component {
 
   render() {
     const item = this.props.navigation.getParam('item', {});
-    return <Details item={item} />
+    return <Details item={item}/>
   }
 }
 
