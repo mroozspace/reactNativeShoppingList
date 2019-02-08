@@ -6,6 +6,7 @@ import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import { ThemeProvider } from 'react-native-elements';
 import storeConfig from './store'
+import theme from './constants/theme'
 
 export default class App extends React.Component {
   state = {
@@ -25,7 +26,7 @@ export default class App extends React.Component {
       return (
         <Provider store={storeConfig.store}>
           <PersistGate loading={null} persistor={storeConfig.persistor}>
-            <ThemeProvider>
+            <ThemeProvider theme={theme}>
               <View style={styles.container}>
                 {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
                 <AppNavigator />

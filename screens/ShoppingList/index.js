@@ -7,6 +7,7 @@ import {
 import { Button } from 'react-native-elements';
 import ListItem from '../../components/ListItem';
 import { connect } from 'react-redux'
+import { deleteFromShoppingList } from '../../actions';
 
 class ShoppingListScreen extends React.Component {
   static navigationOptions = {
@@ -26,6 +27,7 @@ class ShoppingListScreen extends React.Component {
           <ListItem
             navTarget={'ShoppingDetails'}
             item={item}
+            onDelete={this.props.deleteFromShoppingList}
             {...this.props.navigation}
             />
           )}
@@ -54,9 +56,9 @@ const mapStateToProps = (state) => ({
   shoppingList: state.shoppingList 
 })
 
-const mapDispatchToProps = {
- 
-}
+const mapDispatchToProps = dispatch => ({
+  deleteFromShoppingList: list => dispatch(deleteFromShoppingList(list))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingListScreen)
 

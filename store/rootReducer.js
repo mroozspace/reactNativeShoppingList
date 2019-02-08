@@ -4,31 +4,37 @@ const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case 'ADD_SHOPPING_LIST':
       let id = state.shoppingList[state.shoppingList.length - 1].id + 1;
-      let newList = state.shoppingList.concat({
-        id,
-        createdAt: Date.now(),
-        ...payload
-      });
       return {
         ...state,
-        shoppingList: newList
+        shoppingList: state.shoppingList.concat({
+          id,
+          createdAt: Date.now(),
+          ...payload
+        })
       };
     case 'EDIT_SHOPPING_LIST':
-      filteredList = state.shoppingList.filter( item => item.id !== payload.id)
-      let updatedList = filteredList.concat({...payload})
       return {
         ...state,
-        shoppingList: updatedList
+        shoppingList: state.shoppingList
+          .filter(item => item.id !== payload.id)
+          .concat({ ...payload })
+      };
+    case 'DELETE_FROM_SHOPPING_LISTS':
+      return {
+        ...state,
+        shoppingList: state.shoppingList.filter( list => list.id !== payload.id)
       };
     case 'ARCHIVE_SHOPPING_LIST':
-      let filteredList = state.shoppingList.filter( item => item.id !== payload.id)
-      let archived = state.archived.concat(payload)
       return {
         ...state,
-        shoppingList: filteredList,
-        archived
+        shoppingList: state.shoppingList.filter(item => item.id !== payload.id),
+        archived: state.archived.concat(payload)
       };
-
+    case 'DELETE_FROM_ARCHIVED_LISTS':
+      return {
+        ...state,
+        archived: state.archived.filter( list => list.id !== payload.id)
+      };
     default:
       return state;
   }
