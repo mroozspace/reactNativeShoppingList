@@ -4,7 +4,8 @@ import { Icon } from 'react-native-elements'
 import ShoppingList from '../screens/ShoppingList';
 import AddShoppingList from '../screens/AddShoppingList';
 import EditShoppingList from '../screens/EditShoppingList';
-import ItemDetails from '../screens/ItemDetails';
+import ArchivedDetails from '../screens/ArchiveDetails';
+import ShoppingDetails from '../screens/ShoppingDetails';
 import Archived from '../screens/Archived';
 import Colors from '../constants/Colors';
 
@@ -12,7 +13,7 @@ const color = focused => focused ? Colors.primary : Colors.secondary
 
 const ShoppingListStack = createStackNavigator({
   ShoppingList,
-  ItemDetails, //todo, add details screen,
+  ShoppingDetails, //todo, add details screen,
   AddShoppingList,
   EditShoppingList
   // todo update splash screen ...
@@ -31,7 +32,7 @@ ShoppingListStack.navigationOptions = {
 
 const ArchivedStack = createStackNavigator({
   Archived,
-  ItemDetails
+  ArchivedDetails
 });
 
 ArchivedStack.navigationOptions = {

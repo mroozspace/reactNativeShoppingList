@@ -24,6 +24,7 @@ class ShoppingListScreen extends React.Component {
           renderItem={({ item }) => (
           <ListItem 
             item={item}
+            navTarget={'ArchivedDetails'}
             {...this.props.navigation}
             />
           )}

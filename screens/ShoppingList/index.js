@@ -23,7 +23,8 @@ class ShoppingListScreen extends React.Component {
           keyExtractor = { (item, index) => index.toString() }
           data={shoppingList}
           renderItem={({ item }) => (
-          <ListItem 
+          <ListItem
+            navTarget={'ShoppingDetails'}
             item={item}
             {...this.props.navigation}
             />

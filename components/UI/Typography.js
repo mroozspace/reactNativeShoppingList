@@ -16,15 +16,11 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     color: Colors.primary,
     marginBottom: 5,
-    borderBottomWidth: 2,
-    borderBottomColor: Colors.primary
   },
   secondaryHeader: {
     fontSize: 16,
     fontWeight: '600',
     color: Colors.primary,
     marginBottom: 5,
-    borderBottomWidth: 2,
-    borderBottomColor: Colors.primary
   },
 })

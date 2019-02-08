@@ -13,8 +13,8 @@ class ItemDetails extends React.Component {
   };
 
   archive = item => {
-    // this.props.archiveShoppingList(item)
-    // this.props.navigation.navigate.popToTop()
+    this.props.archiveShoppingList(item)
+    this.props.navigation.popToTop()
   }
 
   render() {
@@ -40,18 +40,7 @@ class ItemDetails extends React.Component {
 
         </ScrollView>
         
-        <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between'}}>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('EditShoppingList', {item})}
-            style={[styles.border, {padding: 10, width: '40%'}]}>
-            <BasicText style={{textAlign: 'center'}}>Edit</BasicText>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.archive(item)}
-            style={[styles.border, {padding: 10, width: '40%'}]}>
-            <BasicText style={{textAlign: 'center'}}>Archive</BasicText>
-          </TouchableOpacity>
-        </View>
+        {this.props.children}
       </View>
     );
   }

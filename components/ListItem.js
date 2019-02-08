@@ -9,7 +9,7 @@ const ListItem = props =>{
   return (
     <TouchableOpacity 
         style={styles.container}
-        onPress={ () => props.navigate('ItemDetails', {item})}>
+        onPress={ () => props.navigate(props.navTarget, {item})}>
       <BasicText> {item.name} </BasicText>
     </TouchableOpacity>
   )

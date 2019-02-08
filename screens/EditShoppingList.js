@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Colors from '../constants/Colors'
 import { BasicText } from '../components/UI/Typography';
 import { connect } from 'react-redux'
 import { Input } from 'react-native-elements';
 import { editShoppingList } from '../actions';
+import KeyboardAwareContainer from '../components/KeyboardAwareContainer'
 
 class EditShoppingList extends React.Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class EditShoppingList extends React.Component {
   render() {    
     return (
       <View style={styles.container}>
-        <ScrollView style={[styles.container, styles.border, {marginBottom: 15}]}>
+        <KeyboardAwareContainer style={[styles.container, styles.border, {marginBottom: 15}]}>
         <Input
           onChangeText={ name => this.setState({name})}
           value={this.state.name}
@@ -85,7 +86,7 @@ class EditShoppingList extends React.Component {
           value={this.state.note}
         />
 
-        </ScrollView>
+        </KeyboardAwareContainer>
         
         <View style={{flexDirection: 'row', width: '100%', justifyContent: 'flex-end'}}>
           <TouchableOpacity
