@@ -3,7 +3,12 @@ import initialState from './initialState';
 const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case 'ADD_SHOPPING_LIST':
-      let id = state.shoppingList[state.shoppingList.length - 1].id + 1;
+      let id = state.shoppingList[state.shoppingList.length - 1] && state.shoppingList[state.shoppingList.length - 1].id + 1;
+      if ( !id ) {
+        id = state.archived[state.archived.length - 1] && state.archived[state.archived.length - 1].id + 1;
+      } else {
+        id = 0
+      }
       return {
         ...state,
         shoppingList: state.shoppingList.concat({

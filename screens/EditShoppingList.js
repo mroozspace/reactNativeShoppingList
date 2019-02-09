@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Colors from '../constants/Colors'
-import { BasicText } from '../components/UI/Typography';
 import { connect } from 'react-redux'
-import { Input, CheckBox } from 'react-native-elements';
+import { Input, CheckBox, Text, Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/Feather';
 import { editShoppingList } from '../actions';
 import KeyboardAwareContainer from '../components/KeyboardAwareContainer'
 
@@ -22,9 +22,11 @@ class EditShoppingList extends React.Component {
   };
 
   addProduct = () => {
+    if (this.state.product) {
       const products = this.state.products
       products.push(this.state.product)
       this.setState({ products, product: '' })
+    }
   }
 
   deleteProduct = product => {
@@ -70,12 +72,12 @@ class EditShoppingList extends React.Component {
           value={this.state.product}
         />
         <View style={{flexDirection: 'row', width: '100%', justifyContent: 'flex-end'}}>
-          <TouchableOpacity 
-            disabled={!this.state.product}
-            onPress={() => this.addProduct()}
-            style={[styles.border, {padding: 5, width: '40%', marginTop: 15, marginBottom: 15}]}>
-            <BasicText style={{textAlign: 'center'}}>Add Product</BasicText>
-          </TouchableOpacity>
+          <Button
+            type='outline'
+            title='Add Product'
+            onPress={this.addProduct}
+            icon={<Icon name='plus-square' color={Colors.primary} />}
+          />
         </View>
         
         {this.state.products && this.state.products.map((product, index) => (
@@ -103,7 +105,7 @@ class EditShoppingList extends React.Component {
           <TouchableOpacity
             onPress={() => this.editList()}
             style={[styles.border, {padding: 10, width: '40%'}]}>
-            <BasicText style={{textAlign: 'center'}}>Save</BasicText>
+            <Text style={{textAlign: 'center'}}>Save</Text>
           </TouchableOpacity>
         </View>
       </View>

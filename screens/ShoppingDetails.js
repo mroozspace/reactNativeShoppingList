@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Colors from '../constants/Colors'
-import { BasicText } from '../components/UI/Typography';
 import { connect } from 'react-redux'
 import { archiveShoppingList } from '../actions';
+import { Button } from 'react-native-elements';
 import Details from './Details';
 
 class ShoppingDetails extends React.Component {
@@ -23,16 +23,8 @@ class ShoppingDetails extends React.Component {
     return (
       <Details item={item}>
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('EditShoppingList', {item})}
-          style={styles.button}>
-          <BasicText style={styles.centerText}>Edit</BasicText>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => this.archive(item)}
-          style={styles.button}>
-          <BasicText style={styles.centerText}>Archive</BasicText>
-        </TouchableOpacity>
+      <Button type='outline' title='Edit' onPress={() => navigation.navigate('EditShoppingList', {item})} />
+      <Button type='outline' title='Archive' onPress={() => this.archive(item)} />
       </View>
       </Details>
     );

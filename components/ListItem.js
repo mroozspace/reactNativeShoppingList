@@ -1,8 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
-import { BasicText } from './UI/Typography';
-import { Icon } from 'react-native-elements'
+import { Icon, Text } from 'react-native-elements'
 
 const ListItem = props => {
   const item = props.item;
@@ -12,7 +11,7 @@ const ListItem = props => {
       style={styles.container}
       onPress={() => props.navigate(props.navTarget, { item })}
     >
-      <BasicText> {item.name} </BasicText>
+      <Text ellipsizeMode={"tail"}> {item.name} </Text>
       <Icon 
         name='delete' 
         type='feather' 

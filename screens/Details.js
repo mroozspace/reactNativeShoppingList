@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Share } from 'react-native';
 import Colors from '../constants/Colors';
-import {
-  BasicText,
-  SecondaryHeader,
-  Header
-} from '../components/UI/Typography';
 import moment from 'moment';
-import { CheckBox, Divider, Button } from 'react-native-elements';
+import { CheckBox, Divider, Button, Text } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/Feather';
 class Details extends Component {
   constructor(props) {
     super(props);
@@ -73,10 +69,10 @@ class Details extends Component {
           contentContainerStyle={{ paddingBottom: 50 }}
           style={[styles.container, styles.border, { marginBottom: 15 }]}
         >
-          <Header style={styles.header}>{item.name}</Header>
+          <Text h3>{item.name}</Text>
           <Divider />
 
-          <SecondaryHeader>Products:</SecondaryHeader>
+          <Text h4>Products:</Text>
           {item.products &&
             item.products.map(product => (
               <CheckBox
@@ -87,21 +83,23 @@ class Details extends Component {
               />
             ))}
           <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 15}}>
-            <Button type='outline' title='Check all' onPress={this.onCheckAll} />
-            <Button type='outline' title='Uncheck all' onPress={this.onUncheckAll} />
+            <Button type='outline' title='Check all' onPress={this.onCheckAll} 
+            icon={<Icon name='check-square' />}/>
+            <Button type='outline' title='Uncheck all' onPress={this.onUncheckAll} 
+            icon={<Icon name='square' size={20} />}/>
           </View>
 
-          <SecondaryHeader style={{ marginTop: 15 }}>Notes:</SecondaryHeader>
+          <Text h4>Notes:</Text>
           <Divider />
-          <BasicText>{item.note ? item.note : '...'}</BasicText>
+          <Text>{item.note ? item.note : '...'}</Text>
 
-          <BasicText style={{ marginTop: 15 }}>
+          <Text style={{ marginTop: 15 }}>
             Created at:{' '}
             {item.createdAt
               ? moment(item.createdAt).format('Do MMMM YYYY, h:mm')
               : '...'}
-          </BasicText>
-          <Button type='outline' title='Share' onPress={this.onShare} style={{marginTop: 15}}/>
+          </Text>
+          <Button type='outline' title='Share' onPress={this.onShare}/>
         </ScrollView>
         {children}
       </View>

@@ -5,9 +5,9 @@ import {
   View,
 } from 'react-native';
 import { Button } from 'react-native-elements';
-import ListItem from '../../components/ListItem';
+import ListItem from '../components/ListItem';
 import { connect } from 'react-redux'
-import { deleteFromShoppingList } from '../../actions';
+import { deleteFromShoppingList } from '../actions';
 
 class ShoppingListScreen extends React.Component {
   static navigationOptions = {

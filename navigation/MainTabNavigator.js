@@ -20,7 +20,7 @@ const ShoppingListStack = createStackNavigator({
 });
 
 ShoppingListStack.navigationOptions = {
-  tabBarLabel: 'List',
+  tabBarLabel: 'lists',
   tabBarIcon: ({ focused }) => (
     <Icon
       name='shopping-cart'
@@ -36,7 +36,7 @@ const ArchivedStack = createStackNavigator({
 });
 
 ArchivedStack.navigationOptions = {
-  tabBarLabel: 'archived',
+  tabBarLabel: 'archived lists',
   tabBarIcon: ({ focused }) => (
     <Icon
       name='archive'
