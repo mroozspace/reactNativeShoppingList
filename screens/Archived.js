@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux'
 import ListItem from '../components/ListItem';
-import { deleteFromArchivedList } from '../actions';
 
 class ArchivedListScreen extends React.Component {
   static navigationOptions = {
@@ -14,7 +13,7 @@ class ArchivedListScreen extends React.Component {
   };
 
   render() {
-    const { archived } = this.props
+    const { archived, navigation } = this.props
 
     return (
       <View style={styles.container}>
@@ -23,11 +22,9 @@ class ArchivedListScreen extends React.Component {
           keyExtractor = { (item, index) => index.toString() }
           data={archived}
           renderItem={({ item }) => (
-          <ListItem 
+          <ListItem
             item={item}
-            navTarget={'ArchivedDetails'}
-            onDelete={this.props.deleteFromArchivedList}
-            {...this.props.navigation}
+            onPress={() => navigation.navigate('ArchivedDetails', { item })}
             />
           )}
         />
@@ -51,9 +48,5 @@ const mapStateToProps = (state) => ({
   archived: state.archived 
 })
 
-const mapDispatchToProps = dispatch => ({
-  deleteFromArchivedList: list => dispatch(deleteFromArchivedList(list))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(ArchivedListScreen)
+export default connect(mapStateToProps)(ArchivedListScreen)
 

@@ -1,11 +1,7 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import Colors from '../constants/Colors';
 import { connect } from 'react-redux';
-import { Input, Button, Text } from 'react-native-elements';
 import { addShoppingList } from '../actions';
-import KeyboardAwareContainer from '../components/KeyboardAwareContainer';
-import Icon from 'react-native-vector-icons/Feather';
+import EditList from '../components/EditList';
 
 class AddShoppingList extends React.Component {
   constructor(props) {
@@ -35,81 +31,25 @@ class AddShoppingList extends React.Component {
     this.props.navigation.goBack();
   };
 
+  deleteProduct = product => {
+    const products = this.state.products.filter( item => item !== product)
+    this.setState({ products })
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <KeyboardAwareContainer
-          style={[styles.container, styles.border, { marginBottom: 15 }]}
-        >
-          <Input
-            onChangeText={name => this.setState({ name })}
-            value={this.state.name}
-            placeholder='List name'
-            label={'List name'}
-          />
-
-          <Input
-            onChangeText={product => this.setState({ product })}
-            placeholder='Product'
-            value={this.state.product}
-          />
-          <View
-            style={{
-              flexDirection: 'row',
-              width: '100%',
-              justifyContent: 'flex-end'
-            }}
-          >
-            <Button
-              type='outline'
-              title='Add Product'
-              onPress={this.addProduct}
-              icon={<Icon name='plus-square' color={Colors.primary} />}
-            />
-          </View>
-
-          <Text>Products: </Text>
-          {this.state.products &&
-            this.state.products.map((product, index) => (
-              <Text key={index}> - {product}</Text>
-            ))}
-
-          <Input
-            onChangeText={note => this.setState({ note })}
-            placeholder='Note'
-            value={this.state.note}
-          />
-        </KeyboardAwareContainer>
-
-        <View
-          style={{
-            flexDirection: 'row',
-            width: '100%',
-            justifyContent: 'flex-end'
-          }}
-        >
-          <Button type='outline' title='Save' onPress={this.saveList} />
-        </View>
-      </View>
+      <EditList 
+        {...this.state}
+        onNameChange={name => this.setState({name})}
+        onProductChange={product => this.setState({product})}
+        onNoteChange={note => this.setState({note})}
+        onSave={this.saveList}
+        onProductAdd={this.addProduct}
+        onProductDelete={this.deleteProduct}
+      />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 15
-  },
-  contentContainer: {
-    backgroundColor: '#fff'
-  },
-  border: {
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: Colors.primary,
-    borderRadius: 5
-  }
-});
 
 const mapStateToProps = state => ({});
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Colors from '../constants/Colors'
 import { connect } from 'react-redux'
 import { archiveShoppingList } from '../actions';

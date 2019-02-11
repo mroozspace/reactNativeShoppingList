@@ -7,7 +7,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       if ( !id ) {
         id = state.archived[state.archived.length - 1] && state.archived[state.archived.length - 1].id + 1;
       } else {
-        id = 0
+        id += 1
       }
       return {
         ...state,

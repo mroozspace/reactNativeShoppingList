@@ -15,7 +15,7 @@ class ShoppingListScreen extends React.Component {
   };
 
   render() {
-    const { shoppingList } = this.props
+    const { shoppingList, navigation, deleteFromShoppingList } = this.props
 
     return (
       <View style={styles.container}>
@@ -25,17 +25,17 @@ class ShoppingListScreen extends React.Component {
           data={shoppingList}
           renderItem={({ item }) => (
           <ListItem
-            navTarget={'ShoppingDetails'}
             item={item}
-            onDelete={this.props.deleteFromShoppingList}
-            {...this.props.navigation}
+            iconName='delete'
+            onPress={() => navigation.navigate('ShoppingDetails', { item })}
+            onIconPress={() => deleteFromShoppingList(item)}
             />
           )}
         />
         <Button 
           type='outline'
           title='Add Item' 
-          onPress={() => this.props.navigation.navigate('AddShoppingList')}/>
+          onPress={() => navigation.navigate('AddShoppingList')}/>
       </View>
     );
   }

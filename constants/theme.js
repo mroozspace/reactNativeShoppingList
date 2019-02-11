@@ -3,7 +3,7 @@ import { colors } from "react-native-elements";
 import {StyleSheet} from 'react-native'
 
 const regularFontSize = 14
-const spacing = 15
+export const spacing = 15
 
 const theme = {
   Icon: {
