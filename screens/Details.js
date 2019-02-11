@@ -65,10 +65,8 @@ class Details extends Component {
 
     return (
       <View style={styles.container}>
-        <ScrollView
-          contentContainerStyle={{ paddingBottom: 50 }}
-          style={[styles.container, styles.border, { marginBottom: 15 }]}
-        >
+      <View style={[styles.scrollViewWrapper, styles.border]}>
+        <ScrollView contentContainerStyle={styles.contentContainer}>
           <Text h4>{item.name}</Text>
           <Divider />
 
@@ -101,6 +99,7 @@ class Details extends Component {
           </Text>
           <Button type='outline' title='Share' onPress={this.onShare}/>
         </ScrollView>
+        </View>
         {children}
       </View>
     );
@@ -114,7 +113,14 @@ const styles = StyleSheet.create({
     padding: 15
   },
   contentContainer: {
-    backgroundColor: '#fff'
+    flexGrow: 1,
+    backgroundColor: '#fff',
+    paddingBottom: 50,
+    margin: 15
+  },
+  scrollViewWrapper: {
+    flex: 1,
+    backgroundColor: '#fff',
   },
   border: {
     borderWidth: StyleSheet.hairlineWidth,

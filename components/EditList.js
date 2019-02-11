@@ -21,7 +21,7 @@ const EditList = props => {
   } = props
   return (
     <View style={styles.container}>
-      <KeyboardAwareContainer style={[styles.container, styles.border, {marginBottom: 15}]}>
+      <KeyboardAwareContainer>
       <Input
         onChangeText={onNameChange}
         value={name}
