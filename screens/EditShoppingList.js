@@ -20,8 +20,8 @@ class EditShoppingList extends React.Component {
   };
 
   addProduct = () => {
-    if (this.state.product) {
-      const products = this.state.products;
+    const {product, products} = this.state
+    if (product && !products.includes(product)) {
       products.push(this.state.product);
       let errors = this.state.errors
       errors.products = undefined
