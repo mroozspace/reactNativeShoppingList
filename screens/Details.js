@@ -69,7 +69,7 @@ class Details extends Component {
           contentContainerStyle={{ paddingBottom: 50 }}
           style={[styles.container, styles.border, { marginBottom: 15 }]}
         >
-          <Text h3>{item.name}</Text>
+          <Text h4>{item.name}</Text>
           <Divider />
 
           <Text h4>Products:</Text>

@@ -11,6 +11,7 @@ const EditList = props => {
     product,
     products,
     note,
+    errors,
     onNameChange,
     onProductChange,
     onNoteChange,
@@ -24,12 +25,14 @@ const EditList = props => {
       <Input
         onChangeText={onNameChange}
         value={name}
+        errorMessage={errors.name}
         placeholder='List name'
       />
 
       <Input
         onChangeText={onProductChange}
         placeholder='Product'
+        errorMessage={errors.products}
         value={product}
       />
       <View style={{flexDirection: 'row', width: '100%', justifyContent: 'flex-end'}}>
@@ -43,7 +46,7 @@ const EditList = props => {
       
       {products && products.map((product, index) => (
         <CheckBox
-          key={product}
+          key={`product ${index}`}
           title={product}
           iconRight
           textStyle={{flex: 1}}
