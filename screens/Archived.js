@@ -1,10 +1,7 @@
 import React from 'react';
-import {
-  StyleSheet,
-  FlatList,
-  View,
-} from 'react-native';
-import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
+import { StyleSheet, FlatList, View } from 'react-native';
+import { connect } from 'react-redux';
 import ListItem from '../components/ListItem';
 
 class ArchivedListScreen extends React.Component {
@@ -12,19 +9,24 @@ class ArchivedListScreen extends React.Component {
     title: 'Archived',
   };
 
+  navigateToItem = (item) => {
+    const { navigation } = this.props;
+    navigation.navigate('ArchivedDetails', { item });
+  }
+
   render() {
-    const { archived, navigation } = this.props
+    const { archived } = this.props;
 
     return (
       <View style={styles.container}>
         <FlatList
           contentContainerStyle={styles.contentContainer}
-          keyExtractor = { (item, index) => index.toString() }
+          keyExtractor={(item, index) => index.toString()}
           data={archived}
           renderItem={({ item }) => (
-          <ListItem
-            item={item}
-            onPress={() => navigation.navigate('ArchivedDetails', { item })}
+            <ListItem
+              item={item}
+              onPress={() => this.navigateToItem(item)}
             />
           )}
         />
@@ -44,9 +46,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state) => ({
-  archived: state.archived 
-})
+const mapStateToProps = state => ({
+  archived: state.archived,
+});
 
-export default connect(mapStateToProps)(ArchivedListScreen)
+ArchivedListScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  archived: PropTypes.array,
+};
 
+export default connect(mapStateToProps)(ArchivedListScreen);

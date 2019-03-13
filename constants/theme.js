@@ -1,16 +1,16 @@
-import Colors from "./Colors";
-import { colors } from "react-native-elements";
-import {StyleSheet} from 'react-native'
+import { colors } from 'react-native-elements';
+import { StyleSheet } from 'react-native';
+import Colors from './Colors';
 
-const regularFontSize = 14
-export const spacing = 15
+const regularFontSize = 14;
+export const spacing = 15;
 
 const theme = {
   Icon: {
-    size: 20
+    size: 20,
   },
   Button: {
-    containerStyle : {
+    containerStyle: {
       minWidth: 100,
       marginVertical: spacing,
     },
@@ -19,16 +19,16 @@ const theme = {
     },
     titleStyle: {
       fontSize: regularFontSize,
-      marginHorizontal: 3
-    }
+      marginHorizontal: 3,
+    },
   },
   Input: {
     containerStyle: {
-      paddingHorizontal: 0
+      paddingHorizontal: 0,
     },
     inputStyle: {
-      color: colors.primary
-    }
+      color: colors.primary,
+    },
   },
   CheckBox: {
     containerStyle: {
@@ -38,24 +38,24 @@ const theme = {
       marginHorizontal: 0,
     },
     textStyle: {
-      color: colors.primary
+      color: colors.primary,
     },
     wrapperStyle: {
-      borderColor: colors.primary
-    }
+      borderColor: colors.primary,
+    },
   },
   Divider: {
     style: {
       backgroundColor: Colors.primary,
-      marginVertical: 5
-    }
+      marginVertical: 5,
+    },
   },
   Text: {
     style: {
       fontSize: regularFontSize,
       color: Colors.primary,
-    }
-  }
+    },
+  },
 };
 
-export default theme
+export default theme;

@@ -1,95 +1,115 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import Colors from '../constants/Colors'
 import { Input, CheckBox, Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Feather';
-import KeyboardAwareContainer from './/KeyboardAwareContainer'
+import PropTypes from 'prop-types';
+import Colors from '../constants/Colors';
+import KeyboardAwareContainer from './KeyboardAwareContainer';
 
-const EditList = props => {
-  const {
-    name,
-    product,
-    products,
-    note,
-    errors,
-    onNameChange,
-    onProductChange,
-    onNoteChange,
-    onSave,
-    onProductAdd,
-    onProductDelete
-  } = props
-  return (
-    <View style={styles.container}>
-      <KeyboardAwareContainer>
+const EditList = ({
+  name,
+  product,
+  products,
+  note,
+  errors,
+  onNameChange,
+  onProductChange,
+  onNoteChange,
+  onSave,
+  onProductAdd,
+  onProductDelete,
+}) => (
+  <View style={styles.container}>
+    <KeyboardAwareContainer>
       <Input
         onChangeText={onNameChange}
         value={name}
         errorMessage={errors.name}
-        placeholder='List name'
+        placeholder="List name"
       />
 
       <Input
         onChangeText={onProductChange}
-        placeholder='Product'
+        placeholder="Product"
         errorMessage={errors.products}
         value={product}
       />
-      <View style={{flexDirection: 'row', width: '100%', justifyContent: 'flex-end'}}>
+      <View style={styles.flexRow}>
         <Button
-          type='outline'
-          title='Add Product'
+          type="outline"
+          title="Add Product"
           onPress={onProductAdd}
-          icon={<Icon name='plus-square' color={Colors.primary} />}
+          icon={<Icon name="plus-square" color={Colors.primary} />}
         />
       </View>
-      
-      {products && products.map((product, index) => (
-        <CheckBox
-          key={`product ${index}`}
-          title={product}
-          iconRight
-          textStyle={{flex: 1}}
-          iconType='feather'
-          uncheckedIcon='delete'
-          uncheckedColor={Colors.errorBackground}
-          onIconPress={ () => onProductDelete(product)}
-        />
-      ))}
 
-      <Input
-        onChangeText={onNoteChange}
-        placeholder='Note'
-        value={note}
-      />
+      {products
+        && products.map((product, index) => (
+          <CheckBox
+            key={`product ${index}`}
+            title={product}
+            iconRight
+            textStyle={{ flex: 1 }}
+            iconType="feather"
+            uncheckedIcon="delete"
+            uncheckedColor={Colors.errorBackground}
+            onIconPress={() => onProductDelete(product)}
+          />
+        ))}
 
-      </KeyboardAwareContainer>
-      
-      <View style={{flexDirection: 'row', width: '100%', justifyContent: 'flex-end'}}>
-        <Button 
-          type='outline'
-          title='Save'
-          onPress={onSave}
-        />
-      </View>
+      <Input onChangeText={onNoteChange} placeholder="Note" value={note} />
+    </KeyboardAwareContainer>
+
+    <View style={styles.flexRow}>
+      <Button type="outline" title="Save" onPress={onSave} />
     </View>
-  );
-}
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 15
+    padding: 15,
+  },
+  flexRow: {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'flex-end',
   },
   contentContainer: {
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   border: {
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: Colors.primary,
-    borderRadius: 5
-  }
+    borderRadius: 5,
+  },
 });
 
-export default EditList
+EditList.propTypes = {
+  name: PropTypes.string,
+  product: PropTypes.string,
+  products: PropTypes.arrayOf(PropTypes.string),
+  note: PropTypes.string,
+  errors: PropTypes.object,
+  onNameChange: PropTypes.func.isRequired,
+  onProductChange: PropTypes.func.isRequired,
+  onNoteChange: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onProductAdd: PropTypes.func.isRequired,
+  onProductDelete: PropTypes.func.isRequired,
+};
+
+EditList.defaultProps = {
+  name: '',
+  product: '',
+  products: [],
+  note: '',
+  errors: {
+    name: '',
+    products: '',
+  },
+};
+
+export default EditList;

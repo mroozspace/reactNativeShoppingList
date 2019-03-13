@@ -1,15 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Details from './Details';
 
 class ArchivedDetails extends React.Component {
   static navigationOptions = {
-    title: 'Archived Details'
+    title: 'Archived Details',
   };
 
   render() {
-    const item = this.props.navigation.getParam('item', {});
-    return <Details item={item}/>
+    const { navigation } = this.props;
+    const item = navigation.getParam('item', {});
+    return <Details item={item} />;
   }
 }
 
-export default ArchivedDetails
+ArchivedDetails.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
+
+export default ArchivedDetails;

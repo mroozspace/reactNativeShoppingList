@@ -1,6 +1,9 @@
 import React from 'react';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-import { Icon } from 'react-native-elements'
+import {
+  createStackNavigator,
+  createBottomTabNavigator,
+} from 'react-navigation';
+import { Icon } from 'react-native-elements';
 import ShoppingList from '../screens/ShoppingList';
 import AddShoppingList from '../screens/AddShoppingList';
 import EditShoppingList from '../screens/EditShoppingList';
@@ -9,40 +12,31 @@ import ShoppingDetails from '../screens/ShoppingDetails';
 import Archived from '../screens/Archived';
 import Colors from '../constants/Colors';
 
-const color = focused => focused ? Colors.primary : Colors.secondary
+const color = focused => (focused ? Colors.primary : Colors.secondary);
 
 const ShoppingListStack = createStackNavigator({
   ShoppingList,
-  ShoppingDetails, //todo, add details screen,
+  ShoppingDetails,
   AddShoppingList,
-  EditShoppingList
-  // todo update splash screen ...
+  EditShoppingList,
 });
 
 ShoppingListStack.navigationOptions = {
   tabBarLabel: 'lists',
   tabBarIcon: ({ focused }) => (
-    <Icon
-      name='shopping-cart'
-      type='feather'
-      color={color(focused)}
-    />
+    <Icon name="shopping-cart" type="feather" color={color(focused)} />
   ),
 };
 
 const ArchivedStack = createStackNavigator({
   Archived,
-  ArchivedDetails
+  ArchivedDetails,
 });
 
 ArchivedStack.navigationOptions = {
   tabBarLabel: 'archived lists',
   tabBarIcon: ({ focused }) => (
-    <Icon
-      name='archive'
-      type='feather'
-      color={color(focused)}
-    />
+    <Icon name="archive" type="feather" color={color(focused)} />
   ),
 };
 

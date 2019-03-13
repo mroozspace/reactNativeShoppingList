@@ -1,79 +1,78 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { editShoppingList } from '../actions';
 import EditList from '../components/EditList';
-import isEmpty from '../utils/isEmpty'
+import isEmpty from '../utils/isEmpty';
 
 class EditShoppingList extends React.Component {
+  static navigationOptions = {
+    title: 'Edit Shopping List',
+  };
+
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       name: '',
       product: '',
       products: [],
       note: '',
-      errors: {}
-    }
+      errors: {},
+    };
   }
-  static navigationOptions = {
-    title: 'Edit Shopping List'
-  };
 
   addProduct = () => {
-    const {product, products} = this.state
+    const { product, products } = this.state;
     if (product && !products.includes(product)) {
-      products.push(this.state.product);
-      let errors = this.state.errors
-      errors.products = undefined
+      products.push(product);
+      const { errors } = this.state;
+      errors.products = undefined;
       this.setState({ products, product: '', errors });
     }
   };
 
-  deleteProduct = product => {
-    const products = this.state.products.filter( item => item !== product)
-    this.setState({ products })
-  }
+  deleteProduct = (product) => {
+    const { products: currentProducts } = this.state;
+    const products = currentProducts.filter(item => item !== product);
+    this.setState({ products });
+  };
 
   editList = () => {
-    const item = this.props.navigation.getParam('item', {});
-    const { name, products, note } = this.state;
-    let errors = {}
-    if ( !name ) {
-      errors.name = 'List name is required'
+    const { editShoppingList, navigation } = this.props;
+    const { name = '', products = [], note = '' } = this.state;
+    const item = navigation.getParam('item', {});
+    const errors = {};
+    if (!name) {
+      errors.name = 'List name is required';
     }
-    if ( isEmpty(products) ) {
-      errors.products = 'Add at least 1 product'
+    if (isEmpty(products)) {
+      errors.products = 'Add at least 1 product';
     }
-    this.setState({errors})
-    if ( isEmpty(errors) ){
-      const {
-        name = '',
-        products = [],
-        note = '',
-      } = this.state
-      this.props.editShoppingList({
+    this.setState({ errors });
+    if (isEmpty(errors)) {
+      editShoppingList({
         name,
         products,
         note,
         id: item.id,
-        createdAt: item.createdAt
-      })
-      this.props.navigation.popToTop()
+        createdAt: item.createdAt,
+      });
+      navigation.popToTop();
     }
-  }
+  };
 
   componentDidMount = () => {
     const item = this.props.navigation.getParam('item', {});
-    this.setState({...item})
-  }
+    this.setState({ ...item });
+  };
 
   render() {
     return (
-      <EditList 
+      <EditList
         {...this.state}
-        onNameChange={name => this.setState({name})}
-        onProductChange={product => this.setState({product})}
-        onNoteChange={note => this.setState({note})}
+        onNameChange={name => this.setState({ name })}
+        onProductChange={product => this.setState({ product })}
+        onNoteChange={note => this.setState({ note })}
         onSave={this.editList}
         onProductAdd={this.addProduct}
         onProductDelete={this.deleteProduct}
@@ -83,7 +82,31 @@ class EditShoppingList extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  editShoppingList: data => dispatch(editShoppingList(data))
-})
+  editShoppingList: data => dispatch(editShoppingList(data)),
+});
 
-export default connect(null, mapDispatchToProps)(EditShoppingList)
+EditShoppingList.propTypes = {
+  name: PropTypes.string,
+  product: PropTypes.string,
+  products: PropTypes.arrayOf(PropTypes.string),
+  note: PropTypes.string,
+  errors: PropTypes.object,
+  editShoppingList: PropTypes.func.isRequired,
+  navigation: PropTypes.object.isRequired,
+};
+
+EditShoppingList.defaultProps = {
+  name: '',
+  product: '',
+  products: [],
+  note: '',
+  errors: {
+    name: '',
+    products: '',
+  },
+};
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(EditShoppingList);
